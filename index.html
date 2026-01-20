@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 🌙 Michela</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+            color: #7c4d4d;
+            overflow-x: hidden;
+        }
+        
+        .night-sky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #ffd7d7;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .letter {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.2);
+            border: 2px solid #ffd7d7;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ffb6c1, #ffd7d7, #ffb6c1);
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.7;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #ff9aa2;
+            margin-bottom: 30px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+        
+        .message {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .message-line {
+            margin: 20px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+        
+        .message-line:nth-child(1) { animation-delay: 0.5s; }
+        .message-line:nth-child(2) { animation-delay: 1.5s; }
+        .message-line:nth-child(3) { animation-delay: 2.5s; }
+        .message-line:nth-child(4) { animation-delay: 3.5s; }
+        .message-line:nth-child(5) { animation-delay: 4.5s; }
+        
+        .petals {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .petal {
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffb6c1, #ff9aa2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(255, 154, 162, 0.3);
+        }
+        
+        .petal:hover {
+            transform: translateY(-5px) rotate(10deg);
+            background: linear-gradient(135deg, #ff9aa2, #ff7b8d);
+        }
+        
+        .reveal-message {
+            background: #ffd7d7;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            display: none;
+            text-align: center;
+            border: 1px dashed #ff9aa2;
+            animation: fadeIn 1s;
+        }
+        
+        .flower-btn {
+            background: linear-gradient(135deg, #ff9aa2, #ff7b8d);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 30px auto;
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(255, 154, 162, 0.4);
+        }
+        
+        .flower-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 154, 162, 0.6);
+        }
+        
+        .music-player {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ffd7d7;
+        }
+        
+        .play-btn {
+            background: none;
+            border: 2px solid #ff9aa2;
+            color: #ff9aa2;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+        
+        .play-btn:hover {
+            background: #ff9aa2;
+            color: white;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .moon {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #fffaf0, #fff5e1);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 245, 225, 0.8);
+            animation: gentleGlow 4s infinite ease-in-out;
+        }
+        
+        @keyframes gentleGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(255, 245, 225, 0.8); }
+            50% { box-shadow: 0 0 60px rgba(255, 245, 225, 1); }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #c99;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="night-sky" id="nightSky"></div>
+    <div class="moon"></div>
+    
+    <div class="container">
+        <div class="letter">
+            <h1>For the Beautiful Soul of Michela🌙</h1>
+            
+            <div class="message">
+                <div class="message-line">Sometimes the most beautiful hearts...</div>
+                <div class="message-line">have known the deepest sorrows.</div>
+                <div class="message-line">But that's what makes them shine so brightly.</div>
+                <div class="message-line">You have that kind of heart.</div>
+                <div class="message-line">And it's absolutely precious.</div>
+            </div>
+            
+            <div class="petals">
+                <div class="petal" onclick="showReveal(0)">🌸</div>
+                <div class="petal" onclick="showReveal(1)">💖</div>
+                <div class="petal" onclick="showReveal(2)">✨</div>
+                <div class="petal" onclick="showReveal(3)">🕊️</div>
+                <div class="petal" onclick="showReveal(4)">🌿</div>
+            </div>
+            
+            <div class="reveal-message" id="revealMessage">
+                <p id="revealText">Click the petals above...</p>
+            </div>
+            
+            <button class="flower-btn" onclick="showSpecialMessage()">
+                A Special Thought for You
+            </button>
+            
+            <div class="music-player">
+                <button class="play-btn" onclick="toggleMusic()">
+                    🎵 Play Gentle Music
+                </button>
+                <audio id="bgMusic" loop>
+                    <!-- This will use YouTube video as audio source -->
+                    <source src="https://www.youtube.com/watch?v=5qap5aO4i9A" type="video/mp4">
+                </audio>
+            </div>
+        </div>
+        
+        <footer>
+            Made with care • Just for you • Tonight and always
+        </footer>
+    </div>
+
+    <script>
+        // Create stars
+        const nightSky = document.getElementById('nightSky');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 4 + 2 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            nightSky.appendChild(star);
+        }
+        
+        // Create floating hearts
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 6 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 16) + 'px';
+            document.querySelector('.letter').appendChild(heart);
+        }
+        
+        const revealMessages = [
+            "Your smile could light up the darkest room.",
+            "You're stronger than you know, and softer than you show.",
+            "The way you care about others is your superpower.",
+            "You deserve all the gentle things life has to offer.",
+            "Tonight, remember: you are deeply cherished."
+        ];
+        
+        const specialMessages = [
+            "I was thinking about how some people just have a light about them. You're one of those people.",
+            "The world feels a little brighter knowing you're in it.",
+            "If I could give you one thing, it would be the ability to see yourself through my eyes. Then you'd see how incredible you truly are.",
+            "I'll always be by your side"
+        ];
+        
+        function showReveal(index) {
+            const revealDiv = document.getElementById('revealMessage');
+            const textDiv = document.getElementById('revealText');
+            
+            textDiv.textContent = revealMessages[index];
+            revealDiv.style.display = 'block';
+            
+            // Create a new petal effect
+            createPetalEffect();
+        }
+        
+        function showSpecialMessage() {
+            const message = specialMessages[Math.floor(Math.random() * specialMessages.length)];
+            const revealDiv = document.getElementById('revealMessage');
+            const textDiv = document.getElementById('revealText');
+            
+            textDiv.innerHTML = `"${message}"`;
+            revealDiv.style.display = 'block';
+            revealDiv.style.background = 'linear-gradient(135deg, #fff0f5, #ffe8e8)';
+            revealDiv.style.border = '2px solid #ffb6c1';
+            
+            createHeartRain();
+        }
+        
+        function createPetalEffect() {
+            for (let i = 0; i < 5; i++) {
+                const petal = document.createElement('div');
+                petal.innerHTML = '🌸';
+                petal.style.position = 'fixed';
+                petal.style.fontSize = '24px';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.top = '-50px';
+                petal.style.zIndex = '9999';
+                petal.style.pointerEvents = 'none';
+                document.body.appendChild(petal);
+                
+                petal.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: 2000 + Math.random() * 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                });
+                
+                setTimeout(() => petal.remove(), 3000);
+            }
+        }
+        
+        function createHeartRain() {
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💖';
+                heart.style.position = 'fixed';
+                heart.style.fontSize = '28px';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '-50px';
+                heart.style.zIndex = '9999';
+                heart.style.pointerEvents = 'none';
+                heart.style.opacity = '0.8';
+                document.body.appendChild(heart);
+                
+                heart.animate([
+                    { transform: 'translateY(0) scale(1)', opacity: 0.8 },
+                    { transform: `translateY(${window.innerHeight}px) scale(0.5)`, opacity: 0 }
+                ], {
+                    duration: 3000 + Math.random() * 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                });
+                
+                setTimeout(() => heart.remove(), 4000);
+            }
+        }
+        
+        let musicPlaying = false;
+        function toggleMusic() {
+            const btn = document.querySelector('.play-btn');
+            if (!musicPlaying) {
+                // This is a gentle lofi study music YouTube link
+                window.open('https://www.youtube.com/watch?v=m0NZ-aH0G1g', '_blank');
+                btn.innerHTML = '🎵 Music Playing (new tab)';
+                btn.style.background = '#ff9aa2';
+                btn.style.color = 'white';
+                musicPlaying = true;
+            } else {
+                btn.innerHTML = '🎵 Play Gentle Music';
+                btn.style.background = 'none';
+                btn.style.color = '#ff9aa2';
+                musicPlaying = false;
+            }
+        }
+        
+        // Auto-show first message after a moment
+        setTimeout(() => {
+            showReveal(0);
+        }, 8000);
+    </script>
+</body>
+</html>
